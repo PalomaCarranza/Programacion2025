@@ -34,6 +34,10 @@ dinoJumpImg.src = "img/dinoJumping.jpeg";
 let cactusImg = new Image();
 cactusImg.src = "img/cactus.png";
 
+// Sonidos
+let saltoSonido = new Audio("sonidos/salto.mp3");
+let puntosSonido = new Audio("sonidos/puntos.mp3");
+
 // Función principal del ciclo de juego
 function gameLoop() {
     if (!gameOver) {
@@ -50,6 +54,7 @@ function update() {
     // Aumentar velocidad cada 100 puntos
     if (score % 100 === 0 && score !== 0) {
         gameSpeed += 0.13;
+        puntosSonido.play();
     }
 
     // Física del salto
@@ -121,6 +126,7 @@ document.addEventListener("keydown", function(e) {
     if (e.code === "Space" && !dino.isJumping && !gameOver) {
         dino.isJumping = true;
         dino.vy = -10;
+        saltoSonido.play();
         e.preventDefault();
     }
 });
@@ -137,6 +143,20 @@ document.getElementById("restartBtn").addEventListener("click", function() {
     this.style.display = "none";
     gameLoop();
 });
+
+// Botón de reinicio manual
+document.getElementById("manualRestartBtn").addEventListener("click", function() {
+    gameOver = false;
+    score = 0;
+    gameSpeed = 5;
+    dino.y = canvas.height - dino.height;
+    dino.isJumping = false;
+    dino.vy = 0;
+    obstacle.x = canvas.width;
+    document.getElementById("restartBtn").style.display = "none";
+    gameLoop();
+});
+
 
 
 // Inicia el juego
