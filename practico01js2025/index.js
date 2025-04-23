@@ -12,7 +12,7 @@ let highScore = 0;
 let dino = {
     x: 50,
     y: canvas.height - 47,
-    width: 44,
+    width: 47,
     height: 47,
     vy: 0,
     isJumping: false
@@ -29,6 +29,8 @@ let obstacle = {
 // Carga de imágenes
 let dinoImg = new Image();
 dinoImg.src = "img/dino.png";
+let dinoJumpImg = new Image();
+dinoJumpImg.src = "img/dinoJumping.jpeg";
 let cactusImg = new Image();
 cactusImg.src = "img/cactus.png";
 
@@ -47,7 +49,7 @@ function update() {
 
     // Aumentar velocidad cada 100 puntos
     if (score % 100 === 0 && score !== 0) {
-        gameSpeed += 0.5;
+        gameSpeed += 0.13;
     }
 
     // Física del salto
@@ -98,13 +100,13 @@ function draw() {
     ctx.fillText("High Score: " + highScore, 10, 50);
 
     // Dino
-    if (dinoImg.complete) {
-        ctx.drawImage(dinoImg, dino.x, dino.y, dino.width, dino.height);
+    let imgToUse = dino.isJumping ? dinoJumpImg : dinoImg;
+    if (imgToUse.complete && imgToUse.naturalHeight !== 0) {
+        ctx.drawImage(imgToUse, dino.x, dino.y, dino.width, dino.height);
     } else {
-        ctx.fillStyle = dino.isJumping ? "orange" : "green"; // Color cambia al saltar
+        ctx.fillStyle = dino.isJumping ? "orange" : "green";
         ctx.fillRect(dino.x, dino.y, dino.width, dino.height);
     }
-
     // Cactus
     if (cactusImg.complete) {
         ctx.drawImage(cactusImg, obstacle.x, obstacle.y, obstacle.width, obstacle.height);
