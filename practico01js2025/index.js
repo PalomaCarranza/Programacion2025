@@ -48,7 +48,6 @@ function update() {
     // Aumentar velocidad cada 100 puntos
     if (score % 100 === 0 && score !== 0) {
         gameSpeed += 0.5;
-        puntosSonido.play();
     }
 
     // Física del salto
@@ -120,7 +119,6 @@ document.addEventListener("keydown", function(e) {
     if (e.code === "Space" && !dino.isJumping && !gameOver) {
         dino.isJumping = true;
         dino.vy = -10;
-        saltoSonido.play();
         e.preventDefault();
     }
 });
