@@ -8,10 +8,6 @@ let gameOver = false;
 let score = 0;
 let highScore = 0;
 
-// Sonidos
-const saltoSonido = new Audio("sonidos/salto.mp3");
-const puntosSonido = new Audio("sonidos/puntos.mp3");
-
 // Objeto dinosaurio
 let dino = {
     x: 50,
